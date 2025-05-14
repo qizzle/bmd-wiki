@@ -50,6 +50,33 @@ jobs:
             ${{ runner.os }}-nextjs-bun-
       - name: Install dependencies
         run: bun install --frozen-lockfile
+      - name: Create static fallback for API routes
+        run: |
+          # Create a script to handle API routes for static export
+          cat > ./fixApiRoutes.js << 'EOL'
+          const fs = require('fs');
+          const path = require('path');
+
+          // Path to the API route file
+          const apiRoutePath = './app/api/search/route.js';
+
+          if (fs.existsSync(apiRoutePath)) {
+            // Read the existing route file
+            let content = fs.readFileSync(apiRoutePath, 'utf8');
+            
+            // Add the force-static directive at the top of the file
+            if (!content.includes('export const dynamic = "force-static"')) {
+              content = 'export const dynamic = "force-static";\n' + content;
+              fs.writeFileSync(apiRoutePath, content);
+              console.log(`Updated ${apiRoutePath} with force-static directive`);
+            }
+          } else {
+            console.log(`API route file not found at ${apiRoutePath}`);
+          }
+          EOL
+
+          # Run the script
+          node ./fixApiRoutes.js
       - name: Build with Next.js
         run: bun run build
       - name: Upload artifact
