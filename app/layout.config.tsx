@@ -9,6 +9,7 @@ import { Image } from "fumadocs-core/framework";
  * Docs Layout: app/docs/layout.tsx
  */
 export const baseOptions: BaseLayoutProps = {
+  githubUrl: "https://github.com/qizzle/bmd-wiki",
   nav: {
     title: (
       <>

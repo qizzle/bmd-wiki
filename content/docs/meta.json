@@ -1,3 +1,9 @@
 {
-  "pages": ["---Introduction---", "index", "---Actions---", ".../actions"]
+  "pages": [
+    "---Introduction---",
+    "index",
+    "spoonfeeding",
+    "---Actions---",
+    ".../actions"
+  ]
 }

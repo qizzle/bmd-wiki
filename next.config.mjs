@@ -6,6 +6,9 @@ const withMDX = createMDX();
 const config = {
   reactStrictMode: true,
   devIndicators: false,
+  images: {
+    remotePatterns: [new URL("https://steamuserimages-a.akamaihd.net/**")],
+  },
 };
 
 export default withMDX(config);
